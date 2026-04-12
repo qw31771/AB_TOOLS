@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:forums.autodesk.com)"
+      "WebFetch(domain:forums.autodesk.com)",
+      "Bash(curl -I https://github.com -m 5)",
+      "Bash(git config:*)"
     ]
   }
 }
