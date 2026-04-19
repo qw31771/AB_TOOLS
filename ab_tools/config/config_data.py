@@ -25,9 +25,9 @@ def fetch_icon_path(name):
     """底层路径拼接逻辑"""
     mapping = {
         "ab_shelf_base": os.path.join(PATH_ICONS, "ab_shelf_base.png"),
-        "ab_shelf_hover": os.path.join(PATH_ICONS, "ab_shelf_hover.png")
-        # "ab_hover": os.path.join(PATH_ICONS, "abin_hover.png")
-        # "ab_hover": os.path.join(PATH_ICONS, "abin_hover.png")
+        "ab_shelf_hover": os.path.join(PATH_ICONS, "ab_shelf_hover.png"),
+        "ab_base": os.path.join(PATH_ICONS, "abin_base.png"),
+        "ab_hover": os.path.join(PATH_ICONS, "abin_hover.png"),
 
     }
     return mapping.get(name, "pythonFamily.png")

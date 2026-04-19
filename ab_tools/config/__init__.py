@@ -11,10 +11,14 @@ class Config:
     """[名称] 插件官方显示名称"""
     OBJECT_NAME: str = "ABToolsWorkspaceControl"
     """[名称] Maya UI 唯一识别标识符"""
+    SHELF_NAME: str = "AB_TOOLS"
+    """[名称] 工具架名称"""
+    SHELF_IONS: str = "AB_TOOLS_ICONS"
+    """[名称] 工具架按钮图标标识符"""
 
     # --- 路径数据 (str) ---
-    """[路径] 图标资源目录"""
     Icons: str = config_data.PATH_ICONS
+    """[路径] 图标资源目录"""
     
     UI: str = config_data.PATH_UI
     """[路径] UI脚本目录"""

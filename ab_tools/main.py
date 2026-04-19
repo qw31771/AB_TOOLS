@@ -14,34 +14,41 @@ def run_main_ui():
     global _ui_instance
     _ui_instance = main_window.show_plugin_ui()
 
-def create_shelf():
-    """创建工具架和按钮"""
-    shelf_name = "AB_TOOLS"
+def setup_plugin():
+    print("正在初始化 AB Tools 插件...")
+    shelf_name = Config.SHELF_NAME
     gShelfTopLevel = mel.eval("$tmpVar=$gShelfTopLevel")
     
-    if cmds.shelfLayout(shelf_name, exists=True):
-        for child in cmds.shelfLayout(shelf_name, query=True, childArray=True) or []:
-            cmds.deleteUI(child)
-    else:
+    """创建工具架和按钮"""
+    if not cmds.shelfLayout(shelf_name, exists=True):
         cmds.setParent(gShelfTopLevel)
         cmds.shelfLayout(shelf_name)
-        
-    cmds.setParent(shelf_name)
-    # 按钮逻辑：调用本模块的 run_main_ui
-    cmds.shelfButton(
-        label="AB Tools",
-        # style="iconOnly", 
-        image1=Config.get_icon("ab_shelf_base"),
-        # highlightImage=Config.get_icon("ab_shelf_hover"),
-        command="import ab_tools.main as abm; abm.run_main_ui()",
-        annotation="点击打开AB Tools主界面"
+
+        cmds.shelfButton(
+            image1=Config.get_icon("ab_shelf_base"),
+            # highlightImage=Config.get_icon("ab_shelf_hover"),
+            ann=Config.TITLE,
+            command='import ab_tools; ab_tools.run()',
+            annotation="点击打开AB Tools主界面",
+        )
+        cmds.separator(style='single', width=12,height=32)
+
+
+    """创建图标"""
+    if  (cmds.iconTextButton( Config.SHELF_IONS,ex=1,q=1)):
+        cmds.deleteUI(Config.SHELF_IONS)
+
+    parent=cmds.iconTextButton("statusFieldButton",q=1,p=1)
+    # 添加菜单按钮 iconTextButton
+    cmds.iconTextButton(Config.SHELF_IONS,
+        i=Config.get_icon("ab_base"),
+        hi=Config.get_icon("ab_hover"),
+        ann=Config.TITLE,
+        command='import ab_tools; ab_tools.run()',
+        p=parent
     )
-    cmds.separator(style='single', width=12,height=32)
 
+def run():
+    """直接显示UI的函数，供外部调用"""
+    run_main_ui()
 
-
-def setup_plugin():
-    """自启动逻辑入口"""
-    create_shelf()
-    # 如果需要在Maya启动时自动弹出UI，可以取消下行注释
-    # run_main_ui()

@@ -1,10 +1,7 @@
 from . import main
 import importlib
+importlib.reload(main)
 
-def startup():
-    """
-    插件启动入口，负责调用 main.py 中的相关逻辑
-    """
-    # 开发期间保持模块重载，确保修改 main.py 后重新拖拽可立即生效
-    importlib.reload(main)
+def init():
+    """插件启动入口，负责初始化工具架和按钮"""
     main.setup_plugin()
