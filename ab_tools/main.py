@@ -2,17 +2,11 @@
 import os
 import maya.cmds as cmds
 import maya.mel as mel
-from .ui import main_window # 导入UI模块
+from .ui import ui # 导入UI模块
 from .config import Config # 导入配置接口
 
 
-# 全局变量防止UI被销毁
-_ui_instance = None
 
-def run_main_ui():
-    """触发UI显示的包装函数"""
-    global _ui_instance
-    _ui_instance = main_window.show_plugin_ui()
 
 def setup_plugin():
     print("正在初始化 AB Tools 插件...")
@@ -48,7 +42,11 @@ def setup_plugin():
         p=parent
     )
 
+# 全局变量防止UI被销毁
+_ui_instance = None
+
 def run():
     """直接显示UI的函数，供外部调用"""
-    run_main_ui()
+    global _ui_instance
+    _ui_instance = ui.show_plugin_ui()
 

@@ -17,7 +17,7 @@ class ABToolsWindow(MayaQWidgetDockableMixin, QtWidgets.QWidget):
         layout.addStretch()
 
 # 提供一个统一的显示接口
-def show_plugin_ui():
+def show_main_ui():
     workspace_control_name = "ABToolsWorkspaceControlWorkspaceControl"
     if QtWidgets.QWidget.findChild(QtWidgets.QWidget, workspace_control_name):
         import maya.cmds as cmds
