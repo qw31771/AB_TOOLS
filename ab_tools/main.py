@@ -2,14 +2,20 @@
 import os
 import maya.cmds as cmds
 import maya.mel as mel
-from .ui import ui # 导入UI模块
+from .ui import show # 导入UI显示函数
 from .config import Config # 导入配置接口
+from .core import EventManager, PLUGIN_INITIALIZED, UI_OPENED # 导入事件管理器
 
 
 
 
 def setup_plugin():
     print("正在初始化 AB Tools 插件...")
+
+    # 触发插件初始化事件
+    event_manager = EventManager()
+    event_manager.emit(PLUGIN_INITIALIZED, "AB Tools Plugin")
+
     shelf_name = Config.SHELF_NAME
     gShelfTopLevel = mel.eval("$tmpVar=$gShelfTopLevel")
     
@@ -48,5 +54,9 @@ _ui_instance = None
 def run():
     """直接显示UI的函数，供外部调用"""
     global _ui_instance
-    _ui_instance = ui.show_plugin_ui()
+    _ui_instance = show()
+
+    # 触发UI打开事件
+    event_manager = EventManager()
+    event_manager.emit(UI_OPENED, "main_window")
 
