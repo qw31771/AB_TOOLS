@@ -4,7 +4,7 @@ import maya.cmds as cmds
 import maya.mel as mel
 from .ui import show # 导入UI显示函数
 from .config import Config # 导入配置接口
-from .core import EventManager, PLUGIN_INITIALIZED, UI_OPENED # 导入事件管理器
+from . import eventManager # 导入事件管理器
 
 
 
@@ -13,8 +13,8 @@ def setup_plugin():
     print("正在初始化 AB Tools 插件...")
 
     # 触发插件初始化事件
-    event_manager = EventManager()
-    event_manager.emit(PLUGIN_INITIALIZED, "AB Tools Plugin")
+    event_manager = eventManager.EventManager()
+    event_manager.emit(eventManager.PLUGIN_INITIALIZED, "AB Tools Plugin")
 
     shelf_name = Config.SHELF_NAME
     gShelfTopLevel = mel.eval("$tmpVar=$gShelfTopLevel")
@@ -57,6 +57,6 @@ def run():
     _ui_instance = show()
 
     # 触发UI打开事件
-    event_manager = EventManager()
-    event_manager.emit(UI_OPENED, "main_window")
+    event_manager = eventManager.EventManager()
+    event_manager.emit(eventManager.UI_OPENED, "main_window")
 
