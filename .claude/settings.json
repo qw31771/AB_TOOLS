@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git config *)",
-      "Bash(timeout 5 bash -c \"cat < /dev/null > /dev/tcp/github.com/443\")",
-      "Bash(env)"
-    ]
-  }
-}

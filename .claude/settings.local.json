@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/project-rules/**)",
+      "Bash(python -m py_compile ab_tools/ui/sidebar.py)",
+      "Bash(python -m py_compile ab_tools/ui/main_window.py)",
+      "Bash(python -m py_compile ab_tools/ui/__init__.py)",
+      "Bash(python -m py_compile ab_tools/config/__init__.py)"
+    ]
+  }
+}

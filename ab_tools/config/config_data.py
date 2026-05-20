@@ -21,13 +21,18 @@ def get_px(value):
     """底层数值自适应转换逻辑"""
     return value * SCALING
 
-def fetch_icon_path(name):
-    """底层路径拼接逻辑"""
-    mapping = {
-        "ab_shelf_base": os.path.join(PATH_ICONS, "ab_shelf_base.png"),
-        "ab_shelf_hover": os.path.join(PATH_ICONS, "ab_shelf_hover.png"),
-        "ab_base": os.path.join(PATH_ICONS, "abin_base.png"),
-        "ab_hover": os.path.join(PATH_ICONS, "abin_hover.png"),
+def fetch_icon_path(name, default="pythonFamily.png"):
+    """根据图标名返回绝对路径
 
-    }
-    return mapping.get(name, "pythonFamily.png")
+    Args:
+        name: str - 图标文件名（不含扩展名），如 "ab_base"
+        default: str - 文件不存在时的默认图标
+
+    Returns:
+        str: 图标的绝对路径
+    """
+    path = os.path.join(PATH_ICONS, name + ".png")
+    if os.path.exists(path):
+        return path
+    print(f"警告: 图标文件不存在 '{path}'，使用默认图标")
+    return default

@@ -23,14 +23,18 @@ from .core import eventManager  # 将eventManager提升到根接口
 
 def init():
     """插件启动入口，负责初始化工具架和按钮"""
+    from . import reloadTools
+    reloadTools.reload_all()
     from . import main
     main.setup_plugin()
 
 
 def run():
-    """显示UI界面的函数"""
-    from . import main
-    main.run()
+    """显示UI主窗口"""
+    from . import reloadTools
+    reloadTools.reload_all()
+    from . import ui
+    ui.show()
 
 
 __all__ = [
