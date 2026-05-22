@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""主窗口 — 负责窗口配置、子模块布局编排"""
+"""主窗口 — 负责窗口配置、内容区管理与布局编排"""
 from PySide2 import QtWidgets, QtCore
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as omui
@@ -21,18 +21,29 @@ class ABToolsWindow(QtWidgets.QDockWidget):
         self.setObjectName(config.Name.OBJECT_NAME)
         self.setMinimumWidth(config.Size.WINDOW_MIN_WIDTH)
 
-        bg = config.Theme.BG_COLOR
-        self.setStyleSheet(f"background-color: {bg};")
+        # 中央容器 [内容区 | 侧边栏]
+        central = QtWidgets.QWidget()
+        central.setAttribute(QtCore.Qt.WA_StyledBackground, True)
+        central.setStyleSheet(
+            f"background-color: {config.Theme.MAIN_BG_COLOR};")
+        self.setWidget(central)
 
-        self._sidebar = Sidebar(dock=self)
-        self._sidebar.setStyleSheet(f"background-color: {bg};")
-        self._sidebar.content.setStyleSheet(f"background-color: {bg};")
+        layout = QtWidgets.QHBoxLayout(central)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
 
-        content_layout = QtWidgets.QVBoxLayout(self._sidebar.content)
+        # 内容区
+        self._content = QtWidgets.QWidget()
+        self._content.setStyleSheet(
+            f"background-color: {config.Theme.MAIN_BG_COLOR};")
+        content_layout = QtWidgets.QVBoxLayout(self._content)
         content_layout.setContentsMargins(0, 0, 0, 0)
         content_layout.addStretch()
+        layout.addWidget(self._content, 1)
 
-        self.setWidget(self._sidebar)
+        # 右侧侧边栏
+        self._sidebar = Sidebar(dock=self, content=self._content)
+        layout.addWidget(self._sidebar)
 
 
 def show_main_ui():

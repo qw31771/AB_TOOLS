@@ -13,6 +13,21 @@ AB Tools 模块重载工具
 import sys
 import importlib
 
+# 全局基础设施模块 — 必须在 UI 等消费模块之前重载
+_PRIORITY_PREFIXES = [
+    "ab_tools.config",
+    "ab_tools.core",
+    "ab_tools.ui.sidebar",
+]
+
+
+def _reload_key(name):
+    """排序键：基础设施优先，同组内子模块先于父模块"""
+    for i, pfx in enumerate(_PRIORITY_PREFIXES):
+        if name == pfx or name.startswith(pfx + "."):
+            return (i, -len(name))
+    return (len(_PRIORITY_PREFIXES), -len(name))
+
 
 def reload_all():
     """重载 ab_tools 包内所有已加载的模块
@@ -25,8 +40,19 @@ def reload_all():
     modules = [(n, m) for n, m in sys.modules.items()
                if n.startswith(prefix) and m is not None]
 
-    # 反向排序：子模块先重载，父模块后重载
-    modules.sort(key=lambda x: x[0], reverse=True)
+    # 全局基础设施优先 → 其余模块 → 根模块最后
+    modules.sort(key=lambda x: _reload_key(x[0]))
+    # 将 ab_tools 根模块挪到最后
+    root = None
+    filtered = []
+    for name, module in modules:
+        if name == "ab_tools":
+            root = ("ab_tools", module)
+        else:
+            filtered.append((name, module))
+    if root:
+        filtered.append(root)
+    modules = filtered
 
     ok = 0
     for name, module in modules:

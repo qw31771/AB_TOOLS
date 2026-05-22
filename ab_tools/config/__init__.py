@@ -23,12 +23,14 @@ class Size:
     SHELF_CELL: float = config_data.get_px(34)
     SEP: float = config_data.get_px(2)
     WINDOW_MIN_WIDTH: float = config_data.get_px(300)
-    COLLAPSED_WIDTH: float = config_data.get_px(8)
-    GRAB_WIDTH: float = config_data.get_px(5)
+    COLLAPSED_WIDTH: float = config_data.get_px(10)
+    GRAB_WIDTH: float = config_data.get_px(3)
 
 class Theme:
     """样式常量 — 颜色统一使用 rgb() 格式，便于灵活调色"""
-    BG_COLOR: str = "rgb(30, 30, 30)"
+    MAIN_BG_COLOR: str = "rgb(34, 34, 34)"
+    SIDEBAR_BG_COLOR: str = "rgb(255, 144, 41)"
+    COLLAPSED_BG_COLOR: str = "rgb(255, 85, 18)"
 
 
 class UI:
