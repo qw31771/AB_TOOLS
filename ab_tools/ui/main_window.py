@@ -20,7 +20,6 @@ class ABToolsWindow(QtWidgets.QDockWidget):
         self.setWindowTitle(config.Name.TITLE)
         self.setObjectName(config.Name.OBJECT_NAME)
         self.setMinimumWidth(config.Size.WINDOW_MIN_WIDTH)
-
         # 中央容器 [内容区 | 侧边栏]
         central = QtWidgets.QWidget()
         central.setAttribute(QtCore.Qt.WA_StyledBackground, True)

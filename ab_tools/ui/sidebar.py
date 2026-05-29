@@ -74,7 +74,9 @@ class Sidebar(QtWidgets.QWidget):
     def enterEvent(self, event):
         if not self._collapsed:
             self.setFixedWidth(self._GRAB_WIDTH * 2)
+            self.setStyleSheet(f"background-color: {config.Theme.COLLAPSED_BG_COLOR};")
 
     def leaveEvent(self, event):
         if not self._collapsed:
             self.setFixedWidth(self._GRAB_WIDTH)
+            self.setStyleSheet(f"background-color: {config.Theme.SIDEBAR_BG_COLOR};")
