@@ -4,8 +4,8 @@ from PySide2 import QtWidgets, QtCore, QtGui
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as omui
 from .. import config
-from .sub_ui.statusbar import StatusBar
-from . import sub_ui
+from .AbWidgets.statusbar import StatusBar
+from . import AbWidgets
 
 
 def _maya_main_window():
@@ -72,7 +72,7 @@ class ABToolsWindow(QtWidgets.QDockWidget):
         layout.addWidget(self._content, 1)
 
         # 右侧侧边栏
-        self._sidebar = sub_ui.Sidebar(dock=self, content=self._content)
+        self._sidebar = AbWidgets.Sidebar(dock=self, content=self._content)
         layout.addWidget(self._sidebar)
 
     def _splitter_init(self):

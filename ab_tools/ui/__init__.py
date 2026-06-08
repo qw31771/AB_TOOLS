@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import main_window
-from . import sub_ui
+from . import AbWidgets
 
 
 def show():

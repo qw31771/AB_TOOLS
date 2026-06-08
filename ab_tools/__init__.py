@@ -19,7 +19,7 @@ AB Tools 插件根接口
 """
 
 from .core import eventManager, preferences
-from .ui.sub_ui.statusbar import StatusBar as statusbar
+from .ui.AbWidgets.statusbar import StatusBar as statusbar
 
 
 def init():
