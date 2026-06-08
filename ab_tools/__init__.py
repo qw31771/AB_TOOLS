@@ -18,7 +18,8 @@ AB Tools 插件根接口
     run()   # 显示UI界面
 """
 
-from .core import eventManager  # 将eventManager提升到根接口
+from .core import eventManager, preferences
+from .ui.sub_ui.statusbar import StatusBar as statusbar
 
 
 def init():
@@ -39,6 +40,8 @@ def run():
 
 __all__ = [
     "eventManager",
+    "preferences",
+    "statusbar",
     "init",
     "run",
 ]

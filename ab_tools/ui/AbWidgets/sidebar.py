@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """右侧侧边栏 — 窄条控件，点击折叠/展开主窗口"""
 from PySide2 import QtWidgets, QtCore
-from .. import config
+from ... import config
 
 
 class Sidebar(QtWidgets.QWidget):
@@ -10,20 +10,20 @@ class Sidebar(QtWidgets.QWidget):
     挂在主窗口右侧，点击切换折叠/展开。不管理任何内容，只控制 dock 宽度。
     """
 
-    _GRAB_WIDTH = config.Size.GRAB_WIDTH
+    _GRAB_WIDTH = config.Sidebar.GRAB_WIDTH
 
     def __init__(self, parent=None, dock=None, content=None):
         super().__init__(parent)
         self._dock = dock
         self._content = content
         self._collapsed = False
-        self._normal_width = config.Size.WINDOW_MIN_WIDTH
+        self._normal_width = config.MainWindow.MIN_WIDTH
 
         self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
         self.setFixedWidth(self._GRAB_WIDTH)
         self.setCursor(QtCore.Qt.PointingHandCursor)
         self.setToolTip("点击缩小窗口")
-        self.setStyleSheet(f"background-color: {config.Theme.SIDEBAR_BG_COLOR};")
+        self.setStyleSheet(f"background-color: {config.Sidebar.BG_COLOR};")
 
     # ---- 公开 ----
 
@@ -42,10 +42,10 @@ class Sidebar(QtWidgets.QWidget):
         self.hide()
         if self._content:
             self._content.hide()
-        self.setFixedWidth(config.Size.COLLAPSED_WIDTH)
-        self.setStyleSheet(f"background-color: {config.Theme.COLLAPSED_BG_COLOR};")
+        self.setFixedWidth(config.Sidebar.COLLAPSED_WIDTH)
+        self.setStyleSheet(f"background-color: {config.Sidebar.COLLAPSED_BG_COLOR};")
         if self._dock:
-            self._dock.setFixedWidth(config.Size.COLLAPSED_WIDTH)
+            self._dock.setFixedWidth(config.Sidebar.COLLAPSED_WIDTH)
         self.setToolTip("点击还原窗口")
         self._collapsed = True
         self.show()
@@ -55,13 +55,13 @@ class Sidebar(QtWidgets.QWidget):
             return
         self.hide()
         if self._dock:
-            self._dock.setMinimumWidth(config.Size.WINDOW_MIN_WIDTH)
+            self._dock.setMinimumWidth(config.MainWindow.MIN_WIDTH)
             self._dock.setMaximumWidth(16777215)
             self._dock.resize(self._normal_width, self._dock.height())
         if self._content:
             self._content.show()
         self.setFixedWidth(self._GRAB_WIDTH)
-        self.setStyleSheet(f"background-color: {config.Theme.SIDEBAR_BG_COLOR};")
+        self.setStyleSheet(f"background-color: {config.Sidebar.BG_COLOR};")
         self.setToolTip("点击缩小窗口")
         self._collapsed = False
         self.show()
@@ -74,9 +74,9 @@ class Sidebar(QtWidgets.QWidget):
     def enterEvent(self, event):
         if not self._collapsed:
             self.setFixedWidth(self._GRAB_WIDTH * 2)
-            self.setStyleSheet(f"background-color: {config.Theme.COLLAPSED_BG_COLOR};")
+            self.setStyleSheet(f"background-color: {config.Sidebar.COLLAPSED_BG_COLOR};")
 
     def leaveEvent(self, event):
         if not self._collapsed:
             self.setFixedWidth(self._GRAB_WIDTH)
-            self.setStyleSheet(f"background-color: {config.Theme.SIDEBAR_BG_COLOR};")
+            self.setStyleSheet(f"background-color: {config.Sidebar.BG_COLOR};")

@@ -18,5 +18,6 @@
 """
 
 from . import eventManager
+from . import preferences
 
-__all__ = ["eventManager"]
+__all__ = ["eventManager", "preferences"]

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import main_window
-from . import sidebar
+from . import sub_ui
 
 
 def show():
