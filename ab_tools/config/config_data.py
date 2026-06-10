@@ -38,7 +38,10 @@ def get_px(value, scope=None, key=None):
     """
     default = value * _detect_scaling()
     if scope and key:
-        from ..core.preferences import get
+        try:
+            from ..core.preferences import get
+        except ImportError:
+            return default
         saved = get(scope, key)
         if saved is not None:
             return saved

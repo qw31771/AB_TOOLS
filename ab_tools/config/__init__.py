@@ -39,8 +39,8 @@ class MainWindow:
     FOOTER_TEXT: str = "rgb(200, 200, 200)"                         # 底部文字色
     SPLITTER_HANDLE: str = "rgb(196, 196, 196)"                     # 分割条颜色
     SPLITTER_HANDLE_WIDTH: float = config_data.get_px(5)            # 分割条宽度
-    SPLITTER_TOP = config_data.get_px(250, PREFS_SCOPE, KEY_SPLITTER_TOP)       # 上方面板高度
-    SPLITTER_BOTTOM = config_data.get_px(250, PREFS_SCOPE, KEY_SPLITTER_BOTTOM) # 下方面板高度
+    SPLITTER_TOP = config_data.get_px(250)                          # 上方面板高度（DPI）
+    SPLITTER_BOTTOM = config_data.get_px(250)                       # 下方面板高度（DPI）
     FOOTER_FONT_SIZE: float = config_data.get_px(15)                # 底部文字大小
     FOOTER_BORDER: str = "rgb(218, 189, 163)"                       # 底部描边色
     BG_COLOR: str = "rgb(34, 34, 34)"                               # 背景色
@@ -88,11 +88,18 @@ def get_icon(name: str) -> str:
     return config_data.fetch_icon_path(name)
 
 
-def save_splitter_sizes(sizes: list):
-    """保存分割条尺寸"""
+def load_splitter_sizes():
+    """从偏好中加载分割条尺寸（模块加载完成后调用）
+
+    Returns:
+        [int, int]: [上方高度, 下方高度]，无保存记录时返回 DPI 默认值
+    """
     from .. import preferences
-    preferences.set(MainWindow.PREFS_SCOPE, MainWindow.KEY_SPLITTER_TOP, sizes[0])
-    preferences.set(MainWindow.PREFS_SCOPE, MainWindow.KEY_SPLITTER_BOTTOM, sizes[1])
+    top = preferences.get(MainWindow.PREFS_SCOPE, MainWindow.KEY_SPLITTER_TOP)
+    bot = preferences.get(MainWindow.PREFS_SCOPE, MainWindow.KEY_SPLITTER_BOTTOM)
+    if top is not None and bot is not None:
+        return [int(top), int(bot)]
+    return [int(MainWindow.SPLITTER_TOP), int(MainWindow.SPLITTER_BOTTOM)]
 
 
 def save_splitter_sizes(sizes: list):

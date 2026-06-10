@@ -94,15 +94,16 @@ class ABToolsWindow(QtWidgets.QDockWidget):
         self._splitter.addWidget(bottom)
 
         self._splitter.setChildrenCollapsible(True)
-        self._splitter.splitterMoved.connect(
+
+        # 防抖保存：拖拽停止 200ms 后才写入 JSON，避免高频磁盘 IO 导致 4K 屏幕卡顿
+        self._save_timer = QtCore.QTimer()
+        self._save_timer.setSingleShot(True)
+        self._save_timer.setInterval(200)
+        self._save_timer.timeout.connect(
             lambda: config.save_splitter_sizes(self._splitter.sizes()))
+        self._splitter.splitterMoved.connect(self._save_timer.start)
 
-        sizes = [
-            config.MainWindow.SPLITTER_TOP,
-            config.MainWindow.SPLITTER_BOTTOM,
-        ]
-
-        self._splitter.setSizes(sizes)
+        self._splitter.setSizes(config.load_splitter_sizes())
 
 def show_main_ui():
     """创建并停靠到 Maya 右侧
