@@ -13,9 +13,9 @@ def setup_plugin():
     event_manager = eventManager.EventManager()
     event_manager.emit(eventManager.PLUGIN_INITIALIZED, "AB Tools Plugin")
 
-    shelf_name = config.Name.SHELF_NAME
-    shlf_icon = config.Name.SHELF_ICON
-    ann_show=config.Name.TITLE
+    shelf_name = config.Name.Shelf_Name
+    shlf_icon = config.Name.Shelf_Icon
+    ann_show=config.Name.Title
     gShelfTopLevel = mel.eval("$tmpVar=$gShelfTopLevel")
 
     # 删除旧工具架（开发阶段每次重建）
@@ -26,14 +26,14 @@ def setup_plugin():
     cmds.setParent(gShelfTopLevel)
     cmds.shelfLayout(shelf_name)
     cmds.shelfButton(
-        image1=config.UI.SHELF_iCON,
+        image1=config.Ui.Shelf_Icon,
         ann=ann_show,
         command='import ab_tools; ab_tools.run()',
         annotation="点击打开AB Tools主界面",
     )
     # 白色分隔符
     cmds.shelfButton(
-        image1=config.UI._WHITE,
+        image1=config.Ui.White,
         command="",
         annotation="",
     )
@@ -45,8 +45,8 @@ def setup_plugin():
     # 创建图标按钮
     parent = cmds.iconTextButton("statusFieldButton", q=1, p=1)
     cmds.iconTextButton(shlf_icon,
-        i=config.UI.MENU_ICON,
-        hi=config.UI.MENU_ICON,
+        i=config.Ui.Menu_Icon,
+        hi=config.Ui.Menu_Icon,
         ann=ann_show,
         command='import ab_tools; ab_tools.run()',
         p=parent

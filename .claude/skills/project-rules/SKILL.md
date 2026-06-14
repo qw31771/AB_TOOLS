@@ -83,6 +83,12 @@ description: AB Tools 项目开发规范，AI 和开发者必须遵守的编码�
 - **统一调用**：外部统一 `from ab_tools import xxx`，`xxx.功能()` 调用
 - **接口与逻辑分离**：每个子目录内 `__init__.py` 只做结构导入和常量定义
 
+## UI 模块分类规范
+
+- **AbWidgets**：可复用基础控件（Sidebar、StatusBar、MenuBar），每个一个脚本
+- **AbGui**：完整交互 UI 组件（ImageButton、面板、对话框），每个一个脚本
+- **接口聚合**：通过各自 `__init__.py` 导入，外部只通过 `__init__.py` 访问，禁止直接导入内部脚本
+
 ## 脚本格式规范
 
 - 编码：`# -*- coding: utf-8 -*-`

@@ -23,20 +23,20 @@ class StatusBar:
 
     def _build(self):
         w = QtWidgets.QWidget()
-        w.setFixedHeight(int(config.MainWindow.FOOTER_HEIGHT))
+        w.setFixedHeight(int(config.Footer.Height))
         w.setStyleSheet(
-            f"background-color: {config.MainWindow.BG_COLOR};"
-            f"color: {config.MainWindow.FOOTER_TEXT};"
-            f"border-top: 1px solid {config.MainWindow.FOOTER_BORDER};")
+            f"background-color: {config.Main_Window.Bg_Color};"
+            f"color: {config.Footer.Text_Color};"
+            f"border-top: 1px solid {config.Footer.Border_Color};")
 
         layout = QtWidgets.QVBoxLayout(w)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        self._label = QtWidgets.QLabel("·············")
+        self._label = QtWidgets.QLabel("· · · · · · · · · · · · ·")
         self._label.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self._label.setStyleSheet(
-            f"font-size: {int(config.MainWindow.FOOTER_FONT_SIZE)}px;"
+            f"font-size: {int(config.Footer.Font_Size)}px;"
             f"font-weight: bold;")
         layout.addWidget(self._label)
 
